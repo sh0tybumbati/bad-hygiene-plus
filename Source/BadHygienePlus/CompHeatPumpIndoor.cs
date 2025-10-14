@@ -1,6 +1,5 @@
 using RimWorld;
 using Verse;
-using DubsBadHygiene;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +7,9 @@ namespace BadHygienePlus
 {
     /// <summary>
     /// Heat pump indoor unit that automatically switches between heating and cooling modes
-    /// Inherits from DBH's CompAirconIndoorUnit to work with their pipe network system
+    /// Works alongside DBH's CompAirconUnit without inheritance
     /// </summary>
-    public class CompHeatPumpIndoor : CompAirconIndoorUnit
+    public class CompHeatPumpIndoor : ThingComp
     {
         private static readonly Texture2D HeatingIcon = ContentFinder<Texture2D>.Get("UI/Commands/TempLower", false) ?? BaseContent.BadTex;
         private static readonly Texture2D CoolingIcon = ContentFinder<Texture2D>.Get("UI/Commands/TempRaise", false) ?? BaseContent.BadTex;
@@ -72,11 +71,13 @@ namespace BadHygienePlus
                 isHeating = false;
             }
 
-            // Adjust energy direction based on mode
-            // Cooling: negative energy (removes heat)
-            // Heating: positive energy (adds heat)
-            // The Props.energyPerSecond is defined as negative for cooling in XML
-            // When heating, we reverse it
+            // When heating, push heat into the room
+            if (isHeating && canHeat)
+            {
+                float heatPushRate = 21f; // Same as cooling rate
+                GenTemperature.PushHeat(parent, heatPushRate);
+            }
+            // Cooling is handled by DBH's CompAirconUnit
         }
 
         public bool IsHeating => isHeating;
@@ -100,7 +101,6 @@ namespace BadHygienePlus
 
         public override string CompInspectStringExtra()
         {
-            string baseString = base.CompInspectStringExtra();
             string result = "";
 
             // Current mode
@@ -120,22 +120,17 @@ namespace BadHygienePlus
             if (parent?.Map != null)
             {
                 float outdoorTemp = parent.Map.mapTemperature.OutdoorTemp;
-                result += $"Outdoor: {outdoorTemp.ToStringTemperature()}\n";
+                result += $"Outdoor: {outdoorTemp.ToStringTemperature()}";
 
                 // Show warning if cannot heat
                 if (room != null && tempControl != null &&
                     room.Temperature < (tempControl.targetTemperature - MODE_THRESHOLD) && !CanHeat)
                 {
-                    result += $"Heating unavailable below {MIN_HEATING_OUTDOOR_TEMP.ToStringTemperature()} outdoor\n";
+                    result += $"\nHeating unavailable below {MIN_HEATING_OUTDOOR_TEMP.ToStringTemperature()} outdoor";
                 }
             }
 
-            if (!string.IsNullOrEmpty(baseString))
-            {
-                result += baseString;
-            }
-
-            return result.TrimEnd('\n');
+            return result;
         }
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()

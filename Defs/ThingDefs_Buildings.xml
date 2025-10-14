@@ -85,10 +85,12 @@
 				<mode>Air</mode>
 			</li>
 			<li Class="DubsBadHygiene.CompProperties_CompAirconUnit">
-				<compClass>BadHygienePlus.CompHeatPumpIndoor</compClass>
 				<energyPerSecond>-21</energyPerSecond>
 				<CoolingRate>250</CoolingRate>
 				<Capacity>120</Capacity>
+			</li>
+			<li>
+				<compClass>BadHygienePlus.CompHeatPumpIndoor</compClass>
 			</li>
 			<li Class="CompProperties_TempControl">
 				<compClass>DubsBadHygiene.CompThermostat</compClass>

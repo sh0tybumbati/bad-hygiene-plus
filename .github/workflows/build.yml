@@ -54,9 +54,6 @@ jobs:
                 public float BaseCapacity;
                 public int PowerModes;
             }
-            public class CompAirconIndoorUnit : ThingComp {
-                public CompProperties_CompAirconUnit Props => (CompProperties_CompAirconUnit)props;
-            }
             public class CompProperties_CompAirconUnit : CompProperties {
                 public float energyPerSecond;
                 public float CoolingRate;

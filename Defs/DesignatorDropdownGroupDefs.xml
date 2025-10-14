@@ -2,6 +2,10 @@
 <Defs>
 
 	<DesignatorDropdownGroupDef>
+		<defName>HeatPump</defName>
+	</DesignatorDropdownGroupDef>
+
+	<DesignatorDropdownGroupDef>
 		<defName>ElectrolysisChamber</defName>
 	</DesignatorDropdownGroupDef>
 
