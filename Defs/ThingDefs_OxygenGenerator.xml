@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- Tiny Oxygen Generator (1x1) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>OxygenGeneratorTiny</defName>
+		<label>tiny oxygen generator</label>
+		<description>A compact power generator that burns pure oxygen to produce electricity. Generates twice the power per unit fuel compared to chemfuel or wood, but produces significant heat. Requires connection to oxygen pipe network. Output: 1200W. Warning: Generates substantial heat - ventilation recommended.</description>
+		<thingClass>BadHygienePlus.Building_OxygenGenerator</thingClass>
+		<designatorDropdown>OxygenGenerator</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Power/OxygenGeneratorTiny</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.4</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.35</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>1500</WorkToBuild>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Mass>20</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(1,1)</size>
+		<costList>
+			<Steel>40</Steel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerPlant</compClass>
+				<basePowerConsumption>-1200</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>10</heatPerSecond>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_OxygenGenerator">
+				<o2ConsumptionPerTick>0.05</o2ConsumptionPerTick>
+			</li>
+		</comps>
+		<designationCategory>Power</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Small Oxygen Generator (1x2) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>OxygenGeneratorSmall</defName>
+		<label>oxygen generator</label>
+		<description>A power generator that burns pure oxygen to produce electricity. Generates twice the power per unit fuel compared to chemfuel or wood, but produces significant heat. Requires connection to oxygen pipe network. Output: 2400W. Warning: Generates substantial heat - ventilation or cooling strongly recommended.</description>
+		<thingClass>BadHygienePlus.Building_OxygenGenerator</thingClass>
+		<designatorDropdown>OxygenGenerator</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Power/OxygenGeneratorSmall</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(1,2)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,0.6,1.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.45</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.35</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>2500</WorkToBuild>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Mass>35</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(1,2)</size>
+		<costList>
+			<Steel>75</Steel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerPlant</compClass>
+				<basePowerConsumption>-2400</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>20</heatPerSecond>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_OxygenGenerator">
+				<o2ConsumptionPerTick>0.1</o2ConsumptionPerTick>
+			</li>
+		</comps>
+		<designationCategory>Power</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Medium Oxygen Generator (2x2) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>OxygenGeneratorMedium</defName>
+		<label>large oxygen generator</label>
+		<description>A large power generator that burns pure oxygen to produce electricity. Generates twice the power per unit fuel compared to chemfuel or wood, but produces significant heat. Requires connection to oxygen pipe network. Output: 4800W. Warning: Generates extreme heat - dedicated cooling system required.</description>
+		<thingClass>BadHygienePlus.Building_OxygenGenerator</thingClass>
+		<designatorDropdown>OxygenGenerator</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Power/OxygenGeneratorMedium</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,2)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,1.6,1.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>true</blockWind>
+		<fillPercent>0.5</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.35</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>4000</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Mass>60</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(2,2)</size>
+		<costList>
+			<Steel>125</Steel>
+			<ComponentIndustrial>6</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerPlant</compClass>
+				<basePowerConsumption>-4800</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>40</heatPerSecond>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_OxygenGenerator">
+				<o2ConsumptionPerTick>0.2</o2ConsumptionPerTick>
+			</li>
+		</comps>
+		<designationCategory>Power</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+	</ThingDef>
+
+</Defs>

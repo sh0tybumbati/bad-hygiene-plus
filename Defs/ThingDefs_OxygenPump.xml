@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- Oxygen Pump (Only appears with Odyssey DLC) -->
+	<ThingDef ParentName="BuildingBase" MayRequire="Ludeon.RimWorld.Biotech,Ludeon.RimWorld.Anomaly">
+		<defName>OxygenPump</defName>
+		<label>oxygen pump</label>
+		<description>A life support system that pumps oxygen into enclosed spaces. Essential for maintaining breathable atmosphere in gravship rooms during space travel. Connects to the oxygen pipe network and continuously supplies O2 to the room. Requires Odyssey DLC.</description>
+		<thingClass>BadHygienePlus.Building_OxygenPump</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Misc/OxygenPump</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>40</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.25</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>1500</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>15</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(1,1)</size>
+		<costList>
+			<Steel>40</Steel>
+			<ComponentIndustrial>3</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>100</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_OxygenPump">
+				<o2ConsumptionPerTick>0.02</o2ConsumptionPerTick>
+				<oxygenationRadius>5</oxygenationRadius>
+			</li>
+		</comps>
+		<designationCategory>Misc</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+
+</Defs>

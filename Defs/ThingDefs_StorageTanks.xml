@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- ==================== HYDROGEN STORAGE TANKS ==================== -->
+
+	<!-- Tiny Hydrogen Tank (1x1) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>HydrogenTankTiny</defName>
+		<label>tiny hydrogen tank</label>
+		<description>A small pressurized tank for storing hydrogen gas. Connects to the hydrogen pipe network and acts as a buffer between production and consumption. No power required. Storage: 100 H2.</description>
+		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
+		<designatorDropdown>HydrogenTank</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Storage/HydrogenTankTiny</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>40</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.35</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>800</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Mass>15</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(1,1)</size>
+		<costList>
+			<Steel>25</Steel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Hydrogen</gasType>
+				<storageCapacity>100</storageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Misc</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Small Hydrogen Tank (2x1) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>HydrogenTankSmall</defName>
+		<label>small hydrogen tank</label>
+		<description>A pressurized tank for storing hydrogen gas. Connects to the hydrogen pipe network and acts as a buffer between production and consumption. No power required. Storage: 300 H2.</description>
+		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
+		<designatorDropdown>HydrogenTank</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Storage/HydrogenTankSmall</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,1.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>40</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.4</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>1500</WorkToBuild>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Mass>30</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(2,1)</size>
+		<costList>
+			<Steel>50</Steel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Hydrogen</gasType>
+				<storageCapacity>300</storageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Misc</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Medium Hydrogen Tank (2x2) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>HydrogenTankMedium</defName>
+		<label>hydrogen tank</label>
+		<description>A large pressurized tank for storing hydrogen gas. Connects to the hydrogen pipe network and acts as a buffer between production and consumption. No power required. Storage: 600 H2.</description>
+		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
+		<designatorDropdown>HydrogenTank</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Storage/HydrogenTankMedium</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,2)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,1.6,1.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>true</blockWind>
+		<fillPercent>0.5</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.5</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>2500</WorkToBuild>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Mass>60</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(2,2)</size>
+		<costList>
+			<Steel>100</Steel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Hydrogen</gasType>
+				<storageCapacity>600</storageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Misc</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Large Hydrogen Tank (3x3) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>HydrogenTankLarge</defName>
+		<label>large hydrogen tank</label>
+		<description>A massive industrial pressurized tank for storing hydrogen gas. Connects to the hydrogen pipe network and acts as a buffer between production and consumption. No power required. Storage: 1500 H2.</description>
+		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
+		<designatorDropdown>HydrogenTank</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Storage/HydrogenTankLarge</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,2.6,2.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>60</pathCost>
+		<blockWind>true</blockWind>
+		<fillPercent>0.6</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.75</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>4000</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Mass>120</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(3,3)</size>
+		<costList>
+			<Steel>200</Steel>
+			<ComponentIndustrial>6</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Hydrogen</gasType>
+				<storageCapacity>1500</storageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Misc</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- ==================== OXYGEN STORAGE TANKS ==================== -->
+
+	<!-- Tiny Oxygen Tank (1x1) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>OxygenTankTiny</defName>
+		<label>tiny oxygen tank</label>
+		<description>A small pressurized tank for storing oxygen gas. Connects to the oxygen pipe network and acts as a buffer between production and consumption. No power required. Storage: 50 O2.</description>
+		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
+		<designatorDropdown>OxygenTank</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Storage/OxygenTankTiny</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>40</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.35</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>800</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>15</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(1,1)</size>
+		<costList>
+			<Steel>25</Steel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>50</storageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Misc</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Small Oxygen Tank (2x1) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>OxygenTankSmall</defName>
+		<label>small oxygen tank</label>
+		<description>A pressurized tank for storing oxygen gas. Connects to the oxygen pipe network and acts as a buffer between production and consumption. No power required. Storage: 150 O2.</description>
+		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
+		<designatorDropdown>OxygenTank</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Storage/OxygenTankSmall</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,1.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>40</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.4</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>1500</WorkToBuild>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>30</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(2,1)</size>
+		<costList>
+			<Steel>50</Steel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>150</storageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Misc</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Medium Oxygen Tank (2x2) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>OxygenTankMedium</defName>
+		<label>oxygen tank</label>
+		<description>A large pressurized tank for storing oxygen gas. Connects to the oxygen pipe network and acts as a buffer between production and consumption. No power required. Storage: 300 O2.</description>
+		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
+		<designatorDropdown>OxygenTank</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Storage/OxygenTankMedium</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,2)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,1.6,1.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>true</blockWind>
+		<fillPercent>0.5</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.5</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>2500</WorkToBuild>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>60</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(2,2)</size>
+		<costList>
+			<Steel>100</Steel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>300</storageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Misc</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Large Oxygen Tank (3x3) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>OxygenTankLarge</defName>
+		<label>large oxygen tank</label>
+		<description>A massive industrial pressurized tank for storing oxygen gas. Connects to the oxygen pipe network and acts as a buffer between production and consumption. No power required. Storage: 750 O2.</description>
+		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
+		<designatorDropdown>OxygenTank</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Storage/OxygenTankLarge</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,2.6,2.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>60</pathCost>
+		<blockWind>true</blockWind>
+		<fillPercent>0.6</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.75</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>4000</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>120</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(3,3)</size>
+		<costList>
+			<Steel>200</Steel>
+			<ComponentIndustrial>6</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>750</storageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Misc</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+	</ThingDef>
+
+</Defs>

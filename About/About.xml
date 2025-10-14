@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Bad Hygiene Plus</name>
+	<packageId>Dubwise.BadHygiene.Plus</packageId>
+	<author>Dubwise (original), Community (plus features)</author>
+	<supportedVersions>
+		<li>1.6</li>
+	</supportedVersions>
+	<modDependencies>
+		<li>
+			<packageId>Dubwise.BadHygiene</packageId>
+			<displayName>Dubs Bad Hygiene</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=836308268</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+	<loadAfter>
+		<li>Ludeon.RimWorld</li>
+		<li>Ludeon.RimWorld.Royalty</li>
+		<li>Ludeon.RimWorld.Ideology</li>
+		<li>Ludeon.RimWorld.Biotech</li>
+		<li>Ludeon.RimWorld.Anomaly</li>
+		<li>Dubwise.BadHygiene</li>
+	</loadAfter>
+	<description>An expansion mod for Dubs Bad Hygiene that adds:
+
+• Heat Pumps - Reversible climate control systems that can both heat and cool
+• Electrolysis Systems - Split water into hydrogen and oxygen for power generation and life support
+
+Heat Pumps:
+- More efficient than separate heater + AC systems
+- Automatically switches between heating and cooling modes
+- Heating disabled when outdoor temperature drops below -25°C
+
+Electrolysis Features:
+- Electrolysis chambers that split water into H2 and O2
+- Hydrogen fuel cells for clean power generation
+- Oxygen generators for emergency backup power
+- Gas storage tanks and distribution networks
+- Oxygen pumps for life support (Odyssey DLC integration planned)
+
+This mod requires Dubs Bad Hygiene to function.</description>
+	<url>https://github.com/sh0tybumbati/bad-hygiene-plus</url>
+</ModMetaData>

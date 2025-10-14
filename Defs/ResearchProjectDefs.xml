@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ResearchProjectDef>
+		<defName>Electrolysis</defName>
+		<label>electrolysis</label>
+		<description>Split water into hydrogen and oxygen through electrolysis. Unlocks a complete gas infrastructure system for advanced power generation and life support.
+
+Unlocks:
+• Electrolysis Chambers - Convert water into H2 and O2 (500W/1500W/3000W variants)
+• Hydrogen Fuel Cells - Clean power generation (1200W or 3000W, ~30% more efficient than chemfuel)
+• Oxygen Generators - High-output power (1200W/2400W/4800W, 2x efficiency vs chemfuel, generates heat)
+• Gas Storage Tanks - Buffer production/consumption (4 sizes for both gases)
+• Oxygen Pumps - Life support for Odyssey gravships (requires DLC)
+
+Power comparison:
+• H2 Fuel Cells: Efficient, clean, no heat, acts as energy storage
+• O2 Generators: 2x power output but generates 10-40 heat/sec (cooling required)
+
+Requires dedicated pipe networks for hydrogen and oxygen distribution.</description>
+		<baseCost>4000</baseCost>
+		<techLevel>Industrial</techLevel>
+		<prerequisites>
+			<li>Electricity</li>
+			<li>Microelectronics</li>
+		</prerequisites>
+		<researchViewX>6.00</researchViewX>
+		<researchViewY>4.50</researchViewY>
+	</ResearchProjectDef>
+
+</Defs>

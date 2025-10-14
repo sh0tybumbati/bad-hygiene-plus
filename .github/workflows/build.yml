@@ -1,0 +1,45 @@
+name: Build Bad Hygiene Plus DLL
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Create Assemblies directory
+      run: mkdir -p Assemblies
+
+    - name: Restore dependencies
+      run: dotnet restore Source/BadHygienePlus/BadHygienePlus.csproj
+
+    - name: Build
+      run: dotnet build Source/BadHygienePlus/BadHygienePlus.csproj --configuration Release --no-restore
+
+    - name: List Assemblies
+      run: ls -la Assemblies/
+
+    - name: Commit DLL
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add Assemblies/BadHygienePlus.dll
+        git diff --staged --quiet || git commit -m "Update BadHygienePlus.dll [skip ci]"
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<DesignatorDropdownGroupDef>
+		<defName>ElectrolysisChamber</defName>
+	</DesignatorDropdownGroupDef>
+
+	<DesignatorDropdownGroupDef>
+		<defName>HydrogenFuelCell</defName>
+	</DesignatorDropdownGroupDef>
+
+	<DesignatorDropdownGroupDef>
+		<defName>HydrogenTank</defName>
+	</DesignatorDropdownGroupDef>
+
+	<DesignatorDropdownGroupDef>
+		<defName>OxygenTank</defName>
+	</DesignatorDropdownGroupDef>
+
+	<DesignatorDropdownGroupDef>
+		<defName>OxygenGenerator</defName>
+	</DesignatorDropdownGroupDef>
+
+</Defs>
