@@ -92,6 +92,8 @@ jobs:
                 public PipeType mode;
             }
             public class PipeNet {
+                public PipeType pipeType;
+                public float AvailableWater => 1000f;
                 public float? DrawWater(float amount) { return amount; }
             }
         }
