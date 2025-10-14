@@ -43,25 +43,6 @@ jobs:
         </Project>
         EOFPROJECT
 
-        cat > Building_AirconUnit.cs <<'EOF'
-        using Verse;
-        namespace DubsBadHygiene { public class Building_AirconUnit : Building { } }
-        EOF
-
-        cat > Building_AirconOutdoorUnit.cs <<'EOF'
-        using Verse;
-        using System.Collections.Generic;
-        namespace DubsBadHygiene {
-            public class Building_AirconOutdoorUnit : Building {
-                protected CompAirconBaseUnit compAirconBaseUnit;
-                public override void SpawnSetup(Map map, bool respawningAfterLoad) {
-                    base.SpawnSetup(map, respawningAfterLoad);
-                    compAirconBaseUnit = GetComp<CompAirconBaseUnit>();
-                }
-            }
-        }
-        EOF
-
         cat > CompAirconBaseUnit.cs <<'EOF'
         using Verse;
         using System.Collections.Generic;
@@ -73,7 +54,7 @@ jobs:
                 public float BaseCapacity;
                 public int PowerModes;
             }
-            public class CompAirconUnit : ThingComp {
+            public class CompAirconIndoorUnit : ThingComp {
                 public CompProperties_CompAirconUnit Props => (CompProperties_CompAirconUnit)props;
             }
             public class CompProperties_CompAirconUnit : CompProperties {

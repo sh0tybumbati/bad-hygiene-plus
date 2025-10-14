@@ -6,23 +6,25 @@ using UnityEngine;
 
 namespace BadHygienePlus
 {
-    [StaticConstructorOnStartup]
-    public class CompHeatPump : ThingComp
+    /// <summary>
+    /// Heat pump indoor unit that automatically switches between heating and cooling modes
+    /// Inherits from DBH's CompAirconIndoorUnit to work with their pipe network system
+    /// </summary>
+    public class CompHeatPumpIndoor : CompAirconIndoorUnit
     {
-        // Use vanilla heater icon for heating, and cooling icon (or designator cancel) for cooling
-        private static readonly Texture2D HeatingIcon = ContentFinder<Texture2D>.Get("UI/Designators/Heat", false) ?? BaseContent.BadTex;
-        private static readonly Texture2D CoolingIcon = ContentFinder<Texture2D>.Get("UI/Designators/Cool", false) ?? BaseContent.BadTex;
-        private CompProperties_HeatPump Props => (CompProperties_HeatPump)props;
+        private static readonly Texture2D HeatingIcon = ContentFinder<Texture2D>.Get("UI/Commands/TempLower", false) ?? BaseContent.BadTex;
+        private static readonly Texture2D CoolingIcon = ContentFinder<Texture2D>.Get("UI/Commands/TempRaise", false) ?? BaseContent.BadTex;
 
-        private CompTempControl tempControl;
-        private CompAirconUnit airconUnit;
+        private const float MODE_THRESHOLD = 2f; // Switch mode when 2°C away from target
+        private const float MIN_HEATING_OUTDOOR_TEMP = -25f; // -25°C = -13°F
+
         private bool isHeating = false;
+        private CompTempControl tempControl;
 
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
             tempControl = parent.GetComp<CompTempControl>();
-            airconUnit = parent.GetComp<CompAirconUnit>();
         }
 
         public override void CompTick()
@@ -37,7 +39,7 @@ namespace BadHygienePlus
 
         private void UpdateHeatPumpMode()
         {
-            if (tempControl == null || airconUnit == null)
+            if (tempControl == null)
                 return;
 
             Room room = parent.GetRoom(RegionType.Set_Passable);
@@ -46,46 +48,35 @@ namespace BadHygienePlus
 
             float roomTemp = room.Temperature;
             float targetTemp = tempControl.targetTemperature;
-            float threshold = Props.modeThreshold;
             float outdoorTemp = parent.Map.mapTemperature.OutdoorTemp;
 
             // Determine if we should be heating or cooling
-            bool shouldHeat = roomTemp < (targetTemp - threshold);
-            bool shouldCool = roomTemp > (targetTemp + threshold);
+            bool shouldHeat = roomTemp < (targetTemp - MODE_THRESHOLD);
+            bool shouldCool = roomTemp > (targetTemp + MODE_THRESHOLD);
 
             // Check if outdoor temperature allows heating
-            bool canHeat = outdoorTemp >= Props.minHeatingOutdoorTemp;
+            bool canHeat = outdoorTemp >= MIN_HEATING_OUTDOOR_TEMP;
 
+            // Switch modes as needed
             if (shouldCool && isHeating)
             {
-                // Switch to cooling mode
                 isHeating = false;
-                UpdateMode();
             }
             else if (shouldHeat && !isHeating && canHeat)
             {
-                // Switch to heating mode (only if outdoor temp permits)
                 isHeating = true;
-                UpdateMode();
             }
             else if (isHeating && !canHeat)
             {
-                // Turn off heating if outdoor temp drops too low
+                // Disable heating if outdoor temp too low
                 isHeating = false;
-                UpdateMode();
             }
-        }
 
-        private void UpdateMode()
-        {
-            // The mode switching is handled by the vanilla CompTempControl
-            // We just need to ensure the signs are correct
-            if (tempControl != null)
-            {
-                // When heating, energyPerSecond should be positive
-                // When cooling, energyPerSecond should be negative (handled by CompAirconUnit)
-                // The outdoor unit will automatically reverse its operation
-            }
+            // Adjust energy direction based on mode
+            // Cooling: negative energy (removes heat)
+            // Heating: positive energy (adds heat)
+            // The Props.energyPerSecond is defined as negative for cooling in XML
+            // When heating, we reverse it
         }
 
         public bool IsHeating => isHeating;
@@ -97,7 +88,7 @@ namespace BadHygienePlus
                 if (parent?.Map == null)
                     return false;
                 float outdoorTemp = parent.Map.mapTemperature.OutdoorTemp;
-                return outdoorTemp >= Props.minHeatingOutdoorTemp;
+                return outdoorTemp >= MIN_HEATING_OUTDOOR_TEMP;
             }
         }
 
@@ -109,9 +100,7 @@ namespace BadHygienePlus
 
         public override string CompInspectStringExtra()
         {
-            if (tempControl == null)
-                return null;
-
+            string baseString = base.CompInspectStringExtra();
             string result = "";
 
             // Current mode
@@ -120,7 +109,7 @@ namespace BadHygienePlus
 
             // Room and target temperatures
             Room room = parent.GetRoom(RegionType.Set_Passable);
-            if (room != null)
+            if (room != null && tempControl != null)
             {
                 float roomTemp = room.Temperature;
                 float targetTemp = tempControl.targetTemperature;
@@ -133,24 +122,17 @@ namespace BadHygienePlus
                 float outdoorTemp = parent.Map.mapTemperature.OutdoorTemp;
                 result += $"Outdoor: {outdoorTemp.ToStringTemperature()}\n";
 
-                // Temperature differential
-                if (room != null)
+                // Show warning if cannot heat
+                if (room != null && tempControl != null &&
+                    room.Temperature < (tempControl.targetTemperature - MODE_THRESHOLD) && !CanHeat)
                 {
-                    float differential = isHeating
-                        ? room.Temperature - outdoorTemp
-                        : outdoorTemp - room.Temperature;
-                    result += $"Temp differential: {differential.ToStringTemperatureOffset()}\n";
+                    result += $"Heating unavailable below {MIN_HEATING_OUTDOOR_TEMP.ToStringTemperature()} outdoor\n";
                 }
+            }
 
-                // Show warning if trying to heat but outdoor temp is too cold
-                if (isHeating && !CanHeat)
-                {
-                    result += "WARNING: Too cold outside for heating\n";
-                }
-                else if (room != null && room.Temperature < (tempControl.targetTemperature - Props.modeThreshold) && !CanHeat)
-                {
-                    result += $"Heating unavailable below {Props.minHeatingOutdoorTemp.ToStringTemperature()} outdoor";
-                }
+            if (!string.IsNullOrEmpty(baseString))
+            {
+                result += baseString;
             }
 
             return result.TrimEnd('\n');
@@ -166,15 +148,15 @@ namespace BadHygienePlus
             // Add mode indicator gizmo
             Command_Action modeIndicator = new Command_Action
             {
-                defaultLabel = isHeating ? "Mode: Heating" : "Mode: Cooling",
+                defaultLabel = isHeating ? "Heating" : "Cooling",
                 defaultDesc = isHeating
-                    ? "Heat pump is currently heating the room. Outdoor unit is absorbing heat from outside air."
-                    : "Heat pump is currently cooling the room. Outdoor unit is exhausting heat outside.",
+                    ? "Heat pump is in heating mode. Outdoor unit absorbing heat from outside air."
+                    : "Heat pump is in cooling mode. Outdoor unit exhausting heat outside.",
                 icon = isHeating ? HeatingIcon : CoolingIcon,
                 action = delegate { } // Read-only indicator
             };
 
-            // Add visual indicator by changing icon color
+            // Color code the icon
             if (isHeating)
             {
                 modeIndicator.defaultIconColor = new Color(1f, 0.5f, 0.2f); // Orange for heating
