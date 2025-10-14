@@ -20,6 +20,7 @@ Power comparison:
 Requires dedicated pipe networks for hydrogen and oxygen distribution.</description>
 		<baseCost>4000</baseCost>
 		<techLevel>Industrial</techLevel>
+		<tab>Hygiene</tab>
 		<prerequisites>
 			<li>Electricity</li>
 			<li>Microelectronics</li>

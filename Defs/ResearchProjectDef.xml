@@ -24,6 +24,7 @@ Limitations:
 Ideal for: Year-round climate control with lower power consumption than traditional systems.</description>
 		<baseCost>3000</baseCost>
 		<techLevel>Industrial</techLevel>
+		<tab>Hygiene</tab>
 		<prerequisites>
 			<li>DBHAirconditioning</li>
 		</prerequisites>
