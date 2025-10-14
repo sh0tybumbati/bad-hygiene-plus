@@ -2,6 +2,7 @@ using RimWorld;
 using Verse;
 using DubsBadHygiene;
 using System.Linq;
+using System.Reflection;
 
 namespace BadHygienePlus
 {
@@ -10,7 +11,8 @@ namespace BadHygienePlus
         private CompProperties_Electrolyzer Props => (CompProperties_Electrolyzer)props;
 
         private CompPowerTrader powerComp;
-        private dynamic waterPipe;  // DBH water pipe (using dynamic to avoid type resolution issues)
+        private object waterPipe;  // DBH water pipe (stored as object to avoid type resolution issues)
+        private PropertyInfo pipeNetProperty;  // Cached reflection property for pipeNet
         private CompGasPipe oxygenPipe;  // Our custom gas pipe
         private CompGasPipe hydrogenPipe;  // Our custom gas pipe
         private CompFlickable flickable;
@@ -32,11 +34,25 @@ namespace BadHygienePlus
             {
                 if (comp.GetType().Name == "CompPipe")
                 {
-                    dynamic pipe = comp;
-                    if (pipe.pipeNet?.pipeType == PipeType.Water)
+                    // Use reflection to check pipeNet.pipeType
+                    var pipeNetProp = comp.GetType().GetProperty("pipeNet");
+                    if (pipeNetProp != null)
                     {
-                        waterPipe = pipe;
-                        break;
+                        var pipeNet = pipeNetProp.GetValue(comp);
+                        if (pipeNet != null)
+                        {
+                            var pipeTypeProp = pipeNet.GetType().GetProperty("pipeType");
+                            if (pipeTypeProp != null)
+                            {
+                                var pipeType = pipeTypeProp.GetValue(pipeNet);
+                                if (pipeType != null && pipeType.ToString() == "Water")
+                                {
+                                    waterPipe = comp;
+                                    pipeNetProperty = pipeNetProp;
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -74,27 +90,43 @@ namespace BadHygienePlus
                 return;
             }
 
-            // Consume water and produce gases
-            float waterAvailable = waterPipe.pipeNet?.AvailableWater ?? 0f;
-            if (waterAvailable >= Props.waterConsumptionPerTick)
+            // Consume water and produce gases using reflection
+            if (waterPipe != null && pipeNetProperty != null)
             {
-                // Consume water
-                waterPipe.pipeNet.DrawWater(Props.waterConsumptionPerTick);
-
-                // Produce H2 if storage not full
-                if (h2Stored < Props.h2StorageCapacity)
+                var pipeNet = pipeNetProperty.GetValue(waterPipe);
+                if (pipeNet != null)
                 {
-                    h2Stored += Props.h2ProductionPerTick;
-                    if (h2Stored > Props.h2StorageCapacity)
-                        h2Stored = Props.h2StorageCapacity;
-                }
+                    // Get AvailableWater property
+                    var availableWaterProp = pipeNet.GetType().GetProperty("AvailableWater");
+                    if (availableWaterProp != null)
+                    {
+                        float waterAvailable = (float)availableWaterProp.GetValue(pipeNet);
+                        if (waterAvailable >= Props.waterConsumptionPerTick)
+                        {
+                            // Call DrawWater method
+                            var drawWaterMethod = pipeNet.GetType().GetMethod("DrawWater");
+                            if (drawWaterMethod != null)
+                            {
+                                drawWaterMethod.Invoke(pipeNet, new object[] { Props.waterConsumptionPerTick });
 
-                // Produce O2 if storage not full
-                if (o2Stored < Props.o2StorageCapacity)
-                {
-                    o2Stored += Props.o2ProductionPerTick;
-                    if (o2Stored > Props.o2StorageCapacity)
-                        o2Stored = Props.o2StorageCapacity;
+                                // Produce H2 if storage not full
+                                if (h2Stored < Props.h2StorageCapacity)
+                                {
+                                    h2Stored += Props.h2ProductionPerTick;
+                                    if (h2Stored > Props.h2StorageCapacity)
+                                        h2Stored = Props.h2StorageCapacity;
+                                }
+
+                                // Produce O2 if storage not full
+                                if (o2Stored < Props.o2StorageCapacity)
+                                {
+                                    o2Stored += Props.o2ProductionPerTick;
+                                    if (o2Stored > Props.o2StorageCapacity)
+                                        o2Stored = Props.o2StorageCapacity;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
