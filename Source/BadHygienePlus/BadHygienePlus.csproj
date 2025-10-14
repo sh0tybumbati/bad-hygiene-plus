@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <Reference Include="DubsBadHygiene">
-      <HintPath>..\..\..\..\..\..\workshop\content\294100\836308268\1.6\Assemblies\BadHygiene.dll</HintPath>
+      <HintPath>DubsBadHygiene.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

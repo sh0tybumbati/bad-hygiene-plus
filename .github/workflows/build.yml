@@ -22,6 +22,82 @@ jobs:
     - name: Create Assemblies directory
       run: mkdir -p Assemblies
 
+    - name: Create stub DubsBadHygiene assembly
+      run: |
+        mkdir -p DubsBadHygieneStub
+        cd DubsBadHygieneStub
+        cat > DubsBadHygiene.csproj <<'EOFPROJECT'
+        <Project Sdk="Microsoft.NET.Sdk">
+          <PropertyGroup>
+            <TargetFramework>net472</TargetFramework>
+            <AssemblyName>DubsBadHygiene</AssemblyName>
+            <LangVersion>latest</LangVersion>
+            <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+          </PropertyGroup>
+          <ItemGroup>
+            <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4104" />
+          </ItemGroup>
+        </Project>
+        EOFPROJECT
+
+        cat > Building_AirconUnit.cs <<'EOF'
+        using Verse;
+        namespace DubsBadHygiene { public class Building_AirconUnit : Building { } }
+        EOF
+
+        cat > Building_AirconOutdoorUnit.cs <<'EOF'
+        using Verse;
+        using System.Collections.Generic;
+        namespace DubsBadHygiene {
+            public class Building_AirconOutdoorUnit : Building {
+                protected CompAirconBaseUnit compAirconBaseUnit;
+                public override void SpawnSetup(Map map, bool respawningAfterLoad) {
+                    base.SpawnSetup(map, respawningAfterLoad);
+                    compAirconBaseUnit = GetComp<CompAirconBaseUnit>();
+                }
+            }
+        }
+        EOF
+
+        cat > CompAirconBaseUnit.cs <<'EOF'
+        using Verse;
+        using System.Collections.Generic;
+        namespace DubsBadHygiene {
+            public class CompAirconBaseUnit : ThingComp {
+                public List<Building> ConnectedUnits = new List<Building>();
+            }
+            public class CompProperties_AirconBaseUnit : CompProperties {
+                public float BaseCapacity;
+                public int PowerModes;
+            }
+        }
+        EOF
+
+        cat > CompPipe.cs <<'EOF'
+        using Verse;
+        namespace DubsBadHygiene {
+            public class CompPipe : ThingComp {
+                public PipeNet pipeNet;
+            }
+            public enum PipeType { Sewage, Air, Heating, Water }
+            public class CompProperties_Pipe : CompProperties {
+                public PipeType mode;
+            }
+            public class PipeNet {
+                public float? DrawWater(float amount) { return amount; }
+            }
+        }
+        EOF
+
+        cat > PlaceWorker_WallAttachment.cs <<'EOF'
+        using Verse;
+        namespace DubsBadHygiene { public class PlaceWorker_WallAttachment : PlaceWorker { } }
+        EOF
+
+        dotnet build -c Release
+        cp bin/Release/net472/DubsBadHygiene.dll ../Source/BadHygienePlus/
+        cd ..
+
     - name: Restore dependencies
       run: dotnet restore Source/BadHygienePlus/BadHygienePlus.csproj
 
