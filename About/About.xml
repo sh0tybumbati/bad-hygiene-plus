@@ -8,7 +8,7 @@
 	</supportedVersions>
 	<modDependencies>
 		<li>
-			<packageId>Dubwise.BadHygiene</packageId>
+			<packageId>Dubwise.DubsBadHygiene</packageId>
 			<displayName>Dubs Bad Hygiene</displayName>
 			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=836308268</steamWorkshopUrl>
 		</li>
@@ -19,7 +19,7 @@
 		<li>Ludeon.RimWorld.Ideology</li>
 		<li>Ludeon.RimWorld.Biotech</li>
 		<li>Ludeon.RimWorld.Anomaly</li>
-		<li>Dubwise.BadHygiene</li>
+		<li>Dubwise.DubsBadHygiene</li>
 	</loadAfter>
 	<description>An expansion mod for Dubs Bad Hygiene that adds:
 
