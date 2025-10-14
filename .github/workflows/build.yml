@@ -67,6 +67,7 @@ jobs:
         namespace DubsBadHygiene {
             public class CompPipe : ThingComp {
                 public PipeNet pipeNet;
+                public CompProperties_Pipe Props => (CompProperties_Pipe)props;
             }
             public enum PipeType { Sewage, Air, Heating, Water }
             public class CompProperties_Pipe : CompProperties {
