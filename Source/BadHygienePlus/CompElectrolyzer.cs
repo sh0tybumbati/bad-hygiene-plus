@@ -10,7 +10,7 @@ namespace BadHygienePlus
         private CompProperties_Electrolyzer Props => (CompProperties_Electrolyzer)props;
 
         private CompPowerTrader powerComp;
-        private CompPipe waterPipe;  // DBH water pipe
+        private dynamic waterPipe;  // DBH water pipe (using dynamic to avoid type resolution issues)
         private CompGasPipe oxygenPipe;  // Our custom gas pipe
         private CompGasPipe hydrogenPipe;  // Our custom gas pipe
         private CompFlickable flickable;
@@ -26,14 +26,18 @@ namespace BadHygienePlus
             powerComp = parent.GetComp<CompPowerTrader>();
             flickable = parent.GetComp<CompFlickable>();
 
-            // Get DBH water pipe
-            var pipes = parent.GetComps<CompPipe>();
-            foreach (var pipe in pipes)
+            // Get DBH water pipe using reflection to avoid type resolution issues
+            var allComps = parent.AllComps;
+            foreach (var comp in allComps)
             {
-                if (pipe.pipeNet?.pipeType == PipeType.Water)
+                if (comp.GetType().Name == "CompPipe")
                 {
-                    waterPipe = pipe;
-                    break;
+                    dynamic pipe = comp;
+                    if (pipe.pipeNet?.pipeType == PipeType.Water)
+                    {
+                        waterPipe = pipe;
+                        break;
+                    }
                 }
             }
 
