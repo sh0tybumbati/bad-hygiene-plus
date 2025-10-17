@@ -7,7 +7,7 @@ namespace BadHygienePlus
     {
         private CompProperties_OxygenGenerator Props => (CompProperties_OxygenGenerator)props;
 
-        private CompPowerPlant powerPlant;
+        private CompPowerTrader powerTrader;
         private CompGasPipe oxygenPipe;
         private CompFlickable flickable;
         private CompBreakdownable breakdownable;
@@ -17,7 +17,7 @@ namespace BadHygienePlus
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
-            powerPlant = parent.GetComp<CompPowerPlant>();
+            powerTrader = parent.GetComp<CompPowerTrader>();
             flickable = parent.GetComp<CompFlickable>();
             breakdownable = parent.GetComp<CompBreakdownable>();
 
@@ -65,10 +65,11 @@ namespace BadHygienePlus
             }
 
             // Update power output based on generation status
-            if (powerPlant != null)
+            if (powerTrader != null)
             {
-                // Power output is configured in XML, just ensure it's active when generating
-                powerPlant.PowerOutput = isGenerating ? powerPlant.Props.PowerConsumption : 0f;
+                // Turn power on/off based on whether we're generating
+                // When off, the building won't produce power
+                powerTrader.PowerOn = isGenerating;
             }
         }
 
@@ -79,7 +80,7 @@ namespace BadHygienePlus
             // Status and power output
             if (isGenerating)
             {
-                text += "Power output: " + ((powerPlant?.Props.PowerConsumption ?? 0f) * -1).ToString("F0") + " W\n";
+                text += "Power output: " + ((powerTrader?.Props.basePowerConsumption ?? 0f) * -1).ToString("F0") + " W\n";
 
                 // Oxygen consumption rate
                 float consumptionPerDay = Props.o2ConsumptionPerTick * 60000f; // ticks per day

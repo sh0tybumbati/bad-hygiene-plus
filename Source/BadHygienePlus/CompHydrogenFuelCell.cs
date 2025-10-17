@@ -7,7 +7,7 @@ namespace BadHygienePlus
     {
         private CompProperties_HydrogenFuelCell Props => (CompProperties_HydrogenFuelCell)props;
 
-        private CompPowerPlant powerPlant;
+        private CompPowerTrader powerTrader;
         private CompGasPipe hydrogenPipe;
         private CompFlickable flickable;
         private CompBreakdownable breakdownable;
@@ -18,7 +18,7 @@ namespace BadHygienePlus
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
-            powerPlant = parent.GetComp<CompPowerPlant>();
+            powerTrader = parent.GetComp<CompPowerTrader>();
             flickable = parent.GetComp<CompFlickable>();
             breakdownable = parent.GetComp<CompBreakdownable>();
 
@@ -78,10 +78,12 @@ namespace BadHygienePlus
                 }
             }
 
-            // Update power output
-            if (powerPlant != null)
+            // Update power output by controlling PowerOn state
+            if (powerTrader != null)
             {
-                powerPlant.PowerOutput = isGeneratingPower ? -1200f : 0f;
+                // Turn power on/off based on whether we're generating
+                // When off, the building won't produce power
+                powerTrader.PowerOn = isGeneratingPower;
             }
         }
 
@@ -98,7 +100,7 @@ namespace BadHygienePlus
 
             // Status
             if (isGeneratingPower)
-                text += "Power output: " + ((powerPlant?.Props.PowerConsumption ?? 0f) * -1).ToString("F0") + " W\n";
+                text += "Power output: " + ((powerTrader?.Props.basePowerConsumption ?? 0f) * -1).ToString("F0") + " W\n";
             else if (h2Stored <= 0f)
                 text += "No hydrogen fuel\n";
             else if (flickable != null && !flickable.SwitchIsOn)
