@@ -48,7 +48,7 @@
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="DubsBadHygiene.CompProperties_Pipe">
-				<mode>Water</mode>
+				<mode>Sewage</mode>
 			</li>
 			<li Class="BadHygienePlus.CompProperties_GasPipe">
 				<gasType>Hydrogen</gasType>
@@ -120,7 +120,7 @@
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="DubsBadHygiene.CompProperties_Pipe">
-				<mode>Water</mode>
+				<mode>Sewage</mode>
 			</li>
 			<li Class="BadHygienePlus.CompProperties_GasPipe">
 				<gasType>Hydrogen</gasType>
@@ -192,7 +192,7 @@
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="DubsBadHygiene.CompProperties_Pipe">
-				<mode>Water</mode>
+				<mode>Sewage</mode>
 			</li>
 			<li Class="BadHygienePlus.CompProperties_GasPipe">
 				<gasType>Hydrogen</gasType>

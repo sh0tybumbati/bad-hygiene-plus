@@ -5,7 +5,7 @@ namespace BadHygienePlus
 {
     public class CompHydrogenFuelCell : ThingComp
     {
-        private CompProperties_HydrogenFuelCell Props => (CompProperties_HydrogenFuelCell)props;
+        public CompProperties_HydrogenFuelCell Props => (CompProperties_HydrogenFuelCell)props;
 
         private CompPowerTrader powerTrader;
         private CompGasPipe hydrogenPipe;

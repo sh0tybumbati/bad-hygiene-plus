@@ -7,13 +7,17 @@
 		<label>hydrogen fuel cell</label>
 		<description>A clean power generator that converts hydrogen gas into electricity through electrochemical reaction. Produces no pollution or heat. Requires connection to hydrogen pipe network. Output: 1200W. Approximately 30% more efficient than chemfuel generators. Acts as energy storage - converts excess power into hydrogen, then back to electricity when needed.</description>
 		<thingClass>BadHygienePlus.Building_HydrogenFuelCell</thingClass>
+		<drawerType>MapMeshAndRealTime</drawerType>
 		<designatorDropdown>HydrogenFuelCell</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Power/HydrogenFuelCell</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(1,1)</drawSize>
+			<texPath>Things/Building/Power/Battery</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2,3)</drawSize>
 			<damageData>
-				<rect>(0.2,0.2,0.6,0.6)</rect>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
 		<altitudeLayer>Building</altitudeLayer>
@@ -70,13 +74,17 @@
 		<label>large hydrogen fuel cell</label>
 		<description>A large clean power generator that converts hydrogen gas into electricity through electrochemical reaction. Produces no pollution or heat. Requires connection to hydrogen pipe network. Output: 3000W. Approximately 30% more efficient than chemfuel generators. Acts as energy storage - converts excess power into hydrogen, then back to electricity when needed.</description>
 		<thingClass>BadHygienePlus.Building_HydrogenFuelCell</thingClass>
+		<drawerType>MapMeshAndRealTime</drawerType>
 		<designatorDropdown>HydrogenFuelCell</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Power/HydrogenFuelCell</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(2,1)</drawSize>
+			<texPath>Things/Building/Power/Battery</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2,3)</drawSize>
 			<damageData>
-				<rect>(0.2,0.2,1.6,0.6)</rect>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
 		<altitudeLayer>Building</altitudeLayer>
