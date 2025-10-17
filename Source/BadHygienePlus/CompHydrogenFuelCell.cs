@@ -100,7 +100,7 @@ namespace BadHygienePlus
 
             // Status
             if (isGeneratingPower)
-                text += "Power output: " + ((powerTrader?.Props.basePowerConsumption ?? 0f) * -1).ToString("F0") + " W\n";
+                text += "Power output: " + ((powerTrader?.Props.PowerConsumption ?? 0f) * -1).ToString("F0") + " W\n";
             else if (h2Stored <= 0f)
                 text += "No hydrogen fuel\n";
             else if (flickable != null && !flickable.SwitchIsOn)

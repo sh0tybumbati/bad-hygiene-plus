@@ -80,7 +80,7 @@ namespace BadHygienePlus
             // Status and power output
             if (isGenerating)
             {
-                text += "Power output: " + ((powerTrader?.Props.basePowerConsumption ?? 0f) * -1).ToString("F0") + " W\n";
+                text += "Power output: " + ((powerTrader?.Props.PowerConsumption ?? 0f) * -1).ToString("F0") + " W\n";
 
                 // Oxygen consumption rate
                 float consumptionPerDay = Props.o2ConsumptionPerTick * 60000f; // ticks per day
