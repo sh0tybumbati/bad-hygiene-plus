@@ -19,12 +19,28 @@ namespace BadHygienePlus
         private const float MIN_HEATING_OUTDOOR_TEMP = -25f; // -25°C = -13°F
 
         private bool isHeating = false;
+        private bool manualModeOverride = false; // Allow manual control
         private CompTempControl tempControl;
+        private ThingComp airconComp; // DBH's CompAirconUnit
 
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
             tempControl = parent.GetComp<CompTempControl>();
+
+            // Get DBH's aircon component using reflection (can't reference directly)
+            airconComp = parent.AllComps.Find(c => c.GetType().Name == "CompAirconUnit");
+
+            // Initialize mode based on current conditions if not loading from save
+            if (!respawningAfterLoad)
+            {
+                Room room = parent.GetRoom(RegionType.Set_Passable);
+                if (room != null && tempControl != null)
+                {
+                    // Start in heating mode if room is colder than target
+                    isHeating = room.Temperature < tempControl.targetTemperature;
+                }
+            }
         }
 
         public override void CompTick()
@@ -50,35 +66,68 @@ namespace BadHygienePlus
             float targetTemp = tempControl.targetTemperature;
             float outdoorTemp = parent.Map.mapTemperature.OutdoorTemp;
 
-            // Determine if we should be heating or cooling
-            bool shouldHeat = roomTemp < (targetTemp - MODE_THRESHOLD);
-            bool shouldCool = roomTemp > (targetTemp + MODE_THRESHOLD);
-
             // Check if outdoor temperature allows heating
             bool canHeat = outdoorTemp >= MIN_HEATING_OUTDOOR_TEMP;
 
-            // Switch modes as needed
-            if (shouldCool && isHeating)
+            // Only auto-switch if not in manual override mode
+            if (!manualModeOverride)
             {
-                isHeating = false;
-            }
-            else if (shouldHeat && !isHeating && canHeat)
-            {
-                isHeating = true;
-            }
-            else if (isHeating && !canHeat)
-            {
-                // Disable heating if outdoor temp too low
-                isHeating = false;
+                // Determine if we should be heating or cooling based on INDOOR temperature
+                bool shouldHeat = roomTemp < (targetTemp - MODE_THRESHOLD);
+                bool shouldCool = roomTemp > (targetTemp + MODE_THRESHOLD);
+
+                // Switch modes based on need
+                if (shouldHeat && canHeat)
+                {
+                    isHeating = true;
+                }
+                else if (shouldCool)
+                {
+                    isHeating = false;
+                }
+                // If in dead zone (within threshold), maintain current mode
             }
 
-            // When heating, push heat into the room
-            if (isHeating && canHeat)
+            // Disable heating if outdoor temp too low (override manual mode if necessary)
+            if (isHeating && !canHeat)
             {
-                float heatPushRate = 21f; // Same as cooling rate
-                GenTemperature.PushHeat(parent, heatPushRate);
+                isHeating = false;
+                manualModeOverride = false; // Clear override if conditions prevent heating
             }
-            // Cooling is handled by DBH's CompAirconUnit
+
+            // Control heating vs cooling
+            if (airconComp != null)
+            {
+                if (isHeating && canHeat)
+                {
+                    // In heating mode: disable DBH's cooling and push heat ourselves
+                    // Use reflection to disable the aircon comp
+                    var compEnabled = airconComp.GetType().GetField("compEnabled",
+                        System.Reflection.BindingFlags.Instance |
+                        System.Reflection.BindingFlags.NonPublic |
+                        System.Reflection.BindingFlags.Public);
+                    if (compEnabled != null)
+                    {
+                        compEnabled.SetValue(airconComp, false);
+                    }
+
+                    // Push heat at the inverse rate of cooling (energyPerSecond = -21, so we push +21)
+                    float heatPushRate = 21f;
+                    GenTemperature.PushHeat(parent, heatPushRate);
+                }
+                else
+                {
+                    // In cooling mode: enable DBH's aircon comp to handle cooling
+                    var compEnabled = airconComp.GetType().GetField("compEnabled",
+                        System.Reflection.BindingFlags.Instance |
+                        System.Reflection.BindingFlags.NonPublic |
+                        System.Reflection.BindingFlags.Public);
+                    if (compEnabled != null)
+                    {
+                        compEnabled.SetValue(airconComp, true);
+                    }
+                }
+            }
         }
 
         public bool IsHeating => isHeating;
@@ -98,6 +147,7 @@ namespace BadHygienePlus
         {
             base.PostExposeData();
             Scribe_Values.Look(ref isHeating, "isHeating", false);
+            Scribe_Values.Look(ref manualModeOverride, "manualModeOverride", false);
         }
 
         public override string CompInspectStringExtra()
@@ -141,34 +191,65 @@ namespace BadHygienePlus
                 yield return gizmo;
             }
 
-            // Add mode indicator gizmo
-            Command_Action modeIndicator = new Command_Action
+            // Add mode toggle button (was indicator, now clickable)
+            Command_Action modeToggle = new Command_Action
             {
                 defaultLabel = isHeating ? "Heating" : "Cooling",
-                defaultDesc = isHeating
-                    ? "Heat pump is in heating mode. Outdoor unit absorbing heat from outside air."
-                    : "Heat pump is in cooling mode. Outdoor unit exhausting heat outside.",
+                defaultDesc = (manualModeOverride ? "[Manual] " : "[Auto] ") +
+                    (isHeating
+                        ? "Heat pump is in heating mode. Outdoor unit absorbing heat from outside air.\n\nClick to switch to cooling mode."
+                        : "Heat pump is in cooling mode. Outdoor unit exhausting heat outside.\n\nClick to switch to heating mode."),
                 icon = isHeating ? HeatingIcon : CoolingIcon,
-                action = delegate { } // Read-only indicator
+                action = delegate
+                {
+                    // Toggle mode and enable manual override
+                    isHeating = !isHeating;
+                    manualModeOverride = true;
+
+                    // Can't manually enable heating if outdoor temp too low
+                    if (isHeating && !CanHeat)
+                    {
+                        isHeating = false;
+                        Messages.Message("Cannot enable heating mode: outdoor temperature below " +
+                            MIN_HEATING_OUTDOOR_TEMP.ToStringTemperature(),
+                            parent, MessageTypeDefOf.RejectInput, false);
+                    }
+                }
             };
 
             // Color code the icon
             if (isHeating)
             {
-                modeIndicator.defaultIconColor = new Color(1f, 0.5f, 0.2f); // Orange for heating
+                modeToggle.defaultIconColor = new Color(1f, 0.5f, 0.2f); // Orange for heating
             }
             else
             {
-                modeIndicator.defaultIconColor = new Color(0.4f, 0.7f, 1f); // Blue for cooling
+                modeToggle.defaultIconColor = new Color(0.4f, 0.7f, 1f); // Blue for cooling
             }
 
             // Show disabled if heating but can't heat
             if (isHeating && !CanHeat)
             {
-                modeIndicator.Disable("Outdoor temperature too low for heating");
+                modeToggle.Disable("Outdoor temperature too low for heating");
             }
 
-            yield return modeIndicator;
+            yield return modeToggle;
+
+            // Add auto mode button
+            if (manualModeOverride)
+            {
+                Command_Action autoModeBtn = new Command_Action
+                {
+                    defaultLabel = "Auto Mode",
+                    defaultDesc = "Return to automatic mode switching. System will automatically switch between heating and cooling based on room temperature.",
+                    icon = ContentFinder<Texture2D>.Get("UI/Commands/Draft", false) ?? BaseContent.BadTex,
+                    action = delegate
+                    {
+                        manualModeOverride = false;
+                    }
+                };
+                yield return autoModeBtn;
+            }
         }
     }
 }
