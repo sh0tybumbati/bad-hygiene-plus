@@ -1,4 +1,5 @@
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace BadHygienePlus
@@ -6,6 +7,9 @@ namespace BadHygienePlus
     public class CompHydrogenFuelCell : ThingComp
     {
         public CompProperties_HydrogenFuelCell Props => (CompProperties_HydrogenFuelCell)props;
+
+        private static readonly Material BatteryBarFilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(1f, 0f, 1f)); // Magenta
+        private static readonly Material BatteryBarUnfilledMat = SolidColorMaterials.SimpleSolidColorMaterial(new Color(0.3f, 0.3f, 0.3f)); // Dark gray
 
         private CompPowerTrader powerTrader;
         private CompGasPipe hydrogenPipe;
@@ -92,6 +96,24 @@ namespace BadHygienePlus
             base.PostExposeData();
             Scribe_Values.Look(ref h2Stored, "h2Stored", 0f);
             Scribe_Values.Look(ref isGeneratingPower, "isGeneratingPower", false);
+        }
+
+        public override void PostDraw()
+        {
+            base.PostDraw();
+
+            // Draw hydrogen fuel bar (like battery charge bar)
+            GenDraw.FillableBarRequest r = default(GenDraw.FillableBarRequest);
+            r.center = parent.DrawPos + Vector3.up * 0.1f;
+            r.size = new Vector2(0.55f, 0.08f);
+            r.fillPercent = Props.h2StorageCapacity > 0f ? (h2Stored / Props.h2StorageCapacity) : 0f;
+            r.filledMat = BatteryBarFilledMat;
+            r.unfilledMat = BatteryBarUnfilledMat;
+            r.margin = 0.15f;
+            Rotation rotation = parent.Rotation;
+            rotation.Rotate(RotationDirection.Clockwise);
+            r.rotation = rotation;
+            GenDraw.DrawFillableBar(r);
         }
 
         public override string CompInspectStringExtra()
