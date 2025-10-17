@@ -111,9 +111,7 @@ namespace BadHygienePlus
             r.filledMat = BatteryBarFilledMat;
             r.unfilledMat = BatteryBarUnfilledMat;
             r.margin = 0.15f;
-            Rot4 rotation = parent.Rotation;
-            rotation.Rotate(RotationDirection.Clockwise);
-            r.rotation = rotation;
+            r.rotation = Rot4.North; // Always draw horizontal like batteries
             GenDraw.DrawFillableBar(r);
         }
 
