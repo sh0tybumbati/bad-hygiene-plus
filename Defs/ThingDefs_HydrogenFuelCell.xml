@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- Small Hydrogen Fuel Cell (1x1) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>HydrogenFuelCellSmall</defName>
+		<label>hydrogen fuel cell</label>
+		<description>A clean power generator that converts hydrogen gas into electricity through electrochemical reaction. Produces no pollution or heat. Requires connection to hydrogen pipe network. Output: 1200W. Approximately 30% more efficient than chemfuel generators. Acts as energy storage - converts excess power into hydrogen, then back to electricity when needed.</description>
+		<thingClass>BadHygienePlus.Building_HydrogenFuelCell</thingClass>
+		<designatorDropdown>HydrogenFuelCell</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Power/HydrogenFuelCell</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.4</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.35</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>2000</WorkToBuild>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>0.8</Flammability>
+			<Mass>25</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(1,1)</size>
+		<costList>
+			<Steel>50</Steel>
+			<ComponentIndustrial>3</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerPlant</compClass>
+				<basePowerConsumption>-1200</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Hydrogen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_HydrogenFuelCell">
+				<h2ConsumptionPerTick>0.05</h2ConsumptionPerTick>
+				<h2StorageCapacity>40</h2StorageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Power</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Large Hydrogen Fuel Cell (2x1) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>HydrogenFuelCellLarge</defName>
+		<label>large hydrogen fuel cell</label>
+		<description>A large clean power generator that converts hydrogen gas into electricity through electrochemical reaction. Produces no pollution or heat. Requires connection to hydrogen pipe network. Output: 3000W. Approximately 30% more efficient than chemfuel generators. Acts as energy storage - converts excess power into hydrogen, then back to electricity when needed.</description>
+		<thingClass>BadHygienePlus.Building_HydrogenFuelCell</thingClass>
+		<designatorDropdown>HydrogenFuelCell</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Power/HydrogenFuelCell</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,1.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.45</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.35</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>3500</WorkToBuild>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Flammability>0.8</Flammability>
+			<Mass>50</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(2,1)</size>
+		<costList>
+			<Steel>90</Steel>
+			<ComponentIndustrial>5</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerPlant</compClass>
+				<basePowerConsumption>-3000</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Hydrogen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_HydrogenFuelCell">
+				<h2ConsumptionPerTick>0.125</h2ConsumptionPerTick>
+				<h2StorageCapacity>100</h2StorageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Power</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
+
+</Defs>

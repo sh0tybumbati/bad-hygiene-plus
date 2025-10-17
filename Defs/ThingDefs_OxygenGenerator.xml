@@ -9,7 +9,7 @@
 		<thingClass>BadHygienePlus.Building_OxygenGenerator</thingClass>
 		<designatorDropdown>OxygenGenerator</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Power/OxygenGeneratorTiny</texPath>
+			<texPath>Things/Building/Power/OxygenGenerator</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(1,1)</drawSize>
 			<damageData>
@@ -75,8 +75,8 @@
 		<thingClass>BadHygienePlus.Building_OxygenGenerator</thingClass>
 		<designatorDropdown>OxygenGenerator</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Power/OxygenGeneratorSmall</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Power/OxygenGenerator</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(1,2)</drawSize>
 			<damageData>
 				<rect>(0.2,0.2,0.6,1.6)</rect>
@@ -141,7 +141,7 @@
 		<thingClass>BadHygienePlus.Building_OxygenGenerator</thingClass>
 		<designatorDropdown>OxygenGenerator</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Power/OxygenGeneratorMedium</texPath>
+			<texPath>Things/Building/Power/OxygenGenerator</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(2,2)</drawSize>
 			<damageData>

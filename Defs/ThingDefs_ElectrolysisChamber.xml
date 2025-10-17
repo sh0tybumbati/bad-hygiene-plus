@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- Tiny Electrolysis Chamber (1x1) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>ElectrolysisChamberTiny</defName>
+		<label>tiny electrolysis chamber</label>
+		<description>A compact electrolysis unit that splits water into hydrogen and oxygen gases. Requires connection to water, hydrogen, and oxygen pipe networks. Consumes 500W. Production rate: Low. Ideal for small-scale gas production or testing setups.</description>
+		<thingClass>BadHygienePlus.Building_ElectrolysisChamber</thingClass>
+		<designatorDropdown>ElectrolysisChamber</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Production/ElectrolysisChamber</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.4</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.35</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>2000</WorkToBuild>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>30</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(1,1)</size>
+		<costList>
+			<Steel>60</Steel>
+			<ComponentIndustrial>3</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>500</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="DubsBadHygiene.CompProperties_Pipe">
+				<mode>Water</mode>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Hydrogen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_Electrolyzer">
+				<waterConsumptionPerTick>0.05</waterConsumptionPerTick>
+				<h2ProductionPerTick>0.1</h2ProductionPerTick>
+				<o2ProductionPerTick>0.05</o2ProductionPerTick>
+				<h2StorageCapacity>100</h2StorageCapacity>
+				<o2StorageCapacity>50</o2StorageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Production</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Small Electrolysis Chamber (2x1) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>ElectrolysisChamberSmall</defName>
+		<label>electrolysis chamber</label>
+		<description>An electrolysis unit that splits water into hydrogen and oxygen gases. Requires connection to water, hydrogen, and oxygen pipe networks. Consumes 1500W. Production rate: Medium. Standard unit for most colony gas production needs.</description>
+		<thingClass>BadHygienePlus.Building_ElectrolysisChamber</thingClass>
+		<designatorDropdown>ElectrolysisChamber</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Production/ElectrolysisChamber</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,1)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,1.6,0.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>false</blockWind>
+		<fillPercent>0.45</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.35</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>3500</WorkToBuild>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>60</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(2,1)</size>
+		<costList>
+			<Steel>100</Steel>
+			<ComponentIndustrial>5</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>1500</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="DubsBadHygiene.CompProperties_Pipe">
+				<mode>Water</mode>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Hydrogen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_Electrolyzer">
+				<waterConsumptionPerTick>0.1</waterConsumptionPerTick>
+				<h2ProductionPerTick>0.2</h2ProductionPerTick>
+				<o2ProductionPerTick>0.1</o2ProductionPerTick>
+				<h2StorageCapacity>200</h2StorageCapacity>
+				<o2StorageCapacity>100</o2StorageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Production</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<!-- Large Electrolysis Chamber (2x2) -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>ElectrolysisChamberLarge</defName>
+		<label>large electrolysis chamber</label>
+		<description>A large industrial electrolysis unit that splits water into hydrogen and oxygen gases at high rates. Requires connection to water, hydrogen, and oxygen pipe networks. Consumes 3000W. Production rate: High. For large-scale industrial gas production operations.</description>
+		<thingClass>BadHygienePlus.Building_ElectrolysisChamber</thingClass>
+		<designatorDropdown>ElectrolysisChamber</designatorDropdown>
+		<graphicData>
+			<texPath>Things/Building/Production/ElectrolysisChamber</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,2)</drawSize>
+			<damageData>
+				<rect>(0.2,0.2,1.6,1.6)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<blockWind>true</blockWind>
+		<fillPercent>0.5</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.5</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>5000</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<Mass>100</Mass>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(2,2)</size>
+		<costList>
+			<Steel>175</Steel>
+			<ComponentIndustrial>8</ComponentIndustrial>
+		</costList>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+		<building>
+			<canPlaceOverWall>false</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>3000</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="DubsBadHygiene.CompProperties_Pipe">
+				<mode>Water</mode>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Hydrogen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_GasPipe">
+				<gasType>Oxygen</gasType>
+				<storageCapacity>0</storageCapacity>
+			</li>
+			<li Class="BadHygienePlus.CompProperties_Electrolyzer">
+				<waterConsumptionPerTick>0.2</waterConsumptionPerTick>
+				<h2ProductionPerTick>0.4</h2ProductionPerTick>
+				<o2ProductionPerTick>0.2</o2ProductionPerTick>
+				<h2StorageCapacity>400</h2StorageCapacity>
+				<o2StorageCapacity>200</o2StorageCapacity>
+			</li>
+		</comps>
+		<designationCategory>Production</designationCategory>
+		<researchPrerequisites>
+			<li>Electrolysis</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+	</ThingDef>
+
+</Defs>

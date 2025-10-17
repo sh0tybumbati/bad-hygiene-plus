@@ -9,6 +9,7 @@ namespace BadHygienePlus
     /// Heat pump indoor unit that automatically switches between heating and cooling modes
     /// Works alongside DBH's CompAirconUnit without inheritance
     /// </summary>
+    [StaticConstructorOnStartup]
     public class CompHeatPumpIndoor : ThingComp
     {
         private static readonly Texture2D HeatingIcon = ContentFinder<Texture2D>.Get("UI/Commands/TempLower", false) ?? BaseContent.BadTex;

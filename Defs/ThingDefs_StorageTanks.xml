@@ -11,7 +11,7 @@
 		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
 		<designatorDropdown>HydrogenTank</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Storage/HydrogenTankTiny</texPath>
+			<texPath>Things/Building/Storage/HydrogenTank</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(1,1)</drawSize>
 			<damageData>
@@ -61,8 +61,8 @@
 		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
 		<designatorDropdown>HydrogenTank</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Storage/HydrogenTankSmall</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Storage/HydrogenTank</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(2,1)</drawSize>
 			<damageData>
 				<rect>(0.2,0.2,1.6,0.6)</rect>
@@ -111,7 +111,7 @@
 		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
 		<designatorDropdown>HydrogenTank</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Storage/HydrogenTankMedium</texPath>
+			<texPath>Things/Building/Storage/HydrogenTank</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(2,2)</drawSize>
 			<damageData>
@@ -163,7 +163,7 @@
 		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
 		<designatorDropdown>HydrogenTank</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Storage/HydrogenTankLarge</texPath>
+			<texPath>Things/Building/Storage/HydrogenTank</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(3,3)</drawSize>
 			<damageData>
@@ -217,7 +217,7 @@
 		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
 		<designatorDropdown>OxygenTank</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Storage/OxygenTankTiny</texPath>
+			<texPath>Things/Building/Storage/OxygenTank</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(1,1)</drawSize>
 			<damageData>
@@ -267,8 +267,8 @@
 		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
 		<designatorDropdown>OxygenTank</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Storage/OxygenTankSmall</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Storage/OxygenTank</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(2,1)</drawSize>
 			<damageData>
 				<rect>(0.2,0.2,1.6,0.6)</rect>
@@ -317,7 +317,7 @@
 		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
 		<designatorDropdown>OxygenTank</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Storage/OxygenTankMedium</texPath>
+			<texPath>Things/Building/Storage/OxygenTank</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(2,2)</drawSize>
 			<damageData>
@@ -369,7 +369,7 @@
 		<thingClass>BadHygienePlus.Building_GasStorageTank</thingClass>
 		<designatorDropdown>OxygenTank</designatorDropdown>
 		<graphicData>
-			<texPath>Things/Building/Storage/OxygenTankLarge</texPath>
+			<texPath>Things/Building/Storage/OxygenTank</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(3,3)</drawSize>
 			<damageData>
