@@ -4,6 +4,7 @@ using Verse;
 
 namespace BadHygienePlus
 {
+    [StaticConstructorOnStartup]
     public class CompHydrogenFuelCell : ThingComp
     {
         public CompProperties_HydrogenFuelCell Props => (CompProperties_HydrogenFuelCell)props;
